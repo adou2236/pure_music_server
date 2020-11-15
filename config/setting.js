@@ -10,7 +10,7 @@ module.exports = {
         port: 3306,
         user: 'root',
         database: 'pure_music',
-        password: 'weichen@2018',
+        password: '609597441GHQ',
         char: 'utf8mb4'
     },
     debug: true
