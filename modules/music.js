@@ -19,6 +19,9 @@ var Music = Mysql.define('music', {
     url:{
         type:Sequelize.STRING
     },
+    music_id:{
+        type:Sequelize.STRING
+    },
     artist:{
         type:Sequelize.STRING,
         set(value){
@@ -39,6 +42,9 @@ var Music = Mysql.define('music', {
         set(value){
             return this.setDataValue('keywords',value.join(','))
         }
+    },
+    cover:{
+        type:Sequelize.STRING
     }
 }, {
     freezeTableName: true, //开启自定义表名

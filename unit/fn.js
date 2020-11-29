@@ -43,6 +43,13 @@ function analysisPage(body) {
     });
 }
 
+function normalRes({status=200,message='success',data={}}){
+    return {
+        status:status,//返回状态
+        message:message,//状态描述
+        data:data//具体值
+    }
+};
 
 
-module.exports = {getRealUrl,asd }
+module.exports = {getRealUrl,asd,normalRes }

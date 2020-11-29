@@ -35,13 +35,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(expressJwt({
-  secret: 'pure_music',  // 签名的密钥
-  algorithms: ["HS256"] // 设置算法
-  }).unless({
-    path: ['/users/login', '/users/addNewUser', '/users/modifyUser']  // 不经过 Token 解析的路径
-  })
-)
+// app.use(expressJwt({
+//   secret: 'pure_music',  // 签名的密钥
+//   algorithms: ["HS256"] // 设置算法
+//   }).unless({
+//     path: ['/users/login', '/users/addNewUser', '/users/modifyUser']  // 不经过 Token 解析的路径
+//   })
+// )
 
 
 
