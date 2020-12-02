@@ -10,10 +10,10 @@ const Op = Sequelize.Op;
 router.get('/:music_id',async (req,res)=>{
     const music_id = req.params.music_id
     try {
-        const data = await Music.findOne({where:{uuid:music_id}})
+        const data = await Music.findOne({where:{music_id:music_id}})
         data.play_times++
         const result = await data.save()
-        res.send(result)
+        res.send({})
     } catch (error) {
         res.send(error)
     }

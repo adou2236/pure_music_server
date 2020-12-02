@@ -7,22 +7,25 @@ var Mysql = require('../config/database');//引入mysql实例化
 
 //music作品表
 var Music = Mysql.define('music', {
-    uuid: {//使用uuid 而不使用
+    id: {//使用uuid 而不使用
         type: Sequelize.UUID,//设置类型
         allowNull: false,//是否允许为空
         primaryKey: true,//主键
         defaultValue: Sequelize.UUIDV1,//默认值
     }, //uuid
-    name:{
-        type:Sequelize.STRING(30)
-    },
-    url:{
-        type:Sequelize.STRING
-    },
     music_id:{
         type:Sequelize.STRING
     },
-    artist:{
+    song_name:{
+        type:Sequelize.STRING(30)
+    },
+    // url:{
+    //     type:Sequelize.STRING
+    // },
+    music_id:{
+        type:Sequelize.STRING
+    },
+    author:{
         type:Sequelize.STRING,
         set(value){
             return this.setDataValue('artist',!value?'佚名':value)
@@ -31,27 +34,27 @@ var Music = Mysql.define('music', {
     play_times:{
         type:Sequelize.STRING
     },
-    download_times:{
-        type:Sequelize.STRING
-    },
-    keywords:{
-        type:Sequelize.STRING,
-        get(){
-            return this.getDataValue('keywords').split(',')
-        },
-        set(value){
-            return this.setDataValue('keywords',value.join(','))
-        }
-    },
-    cover:{
+    // download_times:{
+    //     type:Sequelize.STRING
+    // },
+    // keywords:{
+    //     type:Sequelize.STRING,
+    //     get(){
+    //         return this.getDataValue('keywords').split(',')
+    //     },
+    //     set(value){
+    //         return this.setDataValue('keywords',value.join(','))
+    //     }
+    // },
+    pic_url:{
         type:Sequelize.STRING
     }
 }, {
     freezeTableName: true, //开启自定义表名
-    tableName: 'Music',//表名字
+    tableName: 'music_table',//表名字
     timestamps: true, // 添加时间戳属性 (updatedAt, createdAt)
-    createdAt: 'createDate',// 将createdAt字段改个名
-    updatedAt: 'updateDate',// 将updatedAt字段改个名
+    createdAt: 'create_time',// 将createdAt字段改个名
+    updatedAt: 'update_time',// 将updatedAt字段改个名
     indexes: [{ // 索引
         type: 'UNIQUE', //UNIQUE、 FULLTEXT 或 SPATIAL之一
         method: 'BTREE', //BTREE 或 HASH

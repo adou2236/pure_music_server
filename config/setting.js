@@ -6,11 +6,11 @@ module.exports = {
     
     /** mysql settings */
     mysql: {
-        host: 'localhost',
+        host: '45.77.113.46',
         port: 3306,
         user: 'root',
         database: 'pure_music',
-        password: 'weichen@2018',
+        password: '609597441@GHQq',
         char: 'utf8mb4'
     },
     debug: true
