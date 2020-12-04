@@ -21,7 +21,6 @@ router.get('/',(req,res)=>{
 
 router.get('/allUsers', async(req, res) => {
   const result = await Users.findAll()
-  console.log(result)
   res.send(result)
   
 });
@@ -30,7 +29,6 @@ router.post('/addNewUser',async(req,res)=>{
   var newUser = {...req.body}
   Users.findOne({where:{email:req.body.email}}).then(result=>{
     if(!result){
-      console.log(newUser)
       Users.create(newUser).then(data=>{
         res.send('创建成功')
       }).catch(err=>{
@@ -52,7 +50,6 @@ router.post('/modifyUser',async(req,res)=>{
         result.password = req.body.newPassword
       }
       result.username=req.body.username
-      console.log(result)
       const qu = result.save()
       res.send('change success')
 

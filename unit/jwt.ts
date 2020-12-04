@@ -12,7 +12,6 @@ class JWT {
         secret,
         {expiresIn:'1 year'}
       )
-      console.log(token)
       return token
     } catch (e) {
       console.error('jwt sign error --->', e);

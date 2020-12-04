@@ -5,7 +5,6 @@ var Users = require("../modules/users")
         try {
             token = jwt.decode(req)
            Users.findOne({where:{email:token.user.email}}).then(result=>{
-               console.log("result",result.dataValues.last_ip)
             if(result&&result.dataValues.last_ip===token.user.last_ip)
                 resolve(true)
             else 

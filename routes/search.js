@@ -66,9 +66,8 @@ router.post('/topList',async(req,res)=>{
   }
   delete searchParam.newset
   if(req.body.newset){
-    var currentDate = new Date();
-    var date2 = new Date(currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)).toLocaleDateString();
-    searchParam.create_time = {[Op.between]: [date2, currentDate]}
+    searchParam.create_time={[Op.lt]: new Date(),[Op.gt]: new Date(new Date() - 2 * 24 * 60 * 60 * 1000)
+    }
   }
   var arr = []
   arr = Object.keys(searchParam).map((val, index)=>{
@@ -76,7 +75,6 @@ router.post('/topList',async(req,res)=>{
     o[val] = searchParam[val]
     return o
   })
-  console.log(arr)
   const sqlParam = {[Op.and]:arr}
   const result = await Music.findAll({
     order: [

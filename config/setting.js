@@ -6,7 +6,7 @@ module.exports = {
     
     /** mysql settings */
     mysql: {
-        host: '45.77.113.46',
+        host: '8.131.54.184',
         port: 3306,
         user: 'root',
         database: 'pure_music',
