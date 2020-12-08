@@ -16,6 +16,7 @@ router.post('/',async (req,res)=>{
     }
     var nextPage = currentPage + 1;
     const result = await Music.findAndCountAll({
+          attributes: { exclude: ['create_time','update_time'] },
           order: [
               ['play_times', 'DESC']
           ],  // 排序
@@ -48,26 +49,53 @@ router.get('/artistList',async (req,res)=>{
 })
 
 router.get('/musicByArtist',async(req,res)=>{
+    var pageSize = req.body.pageSize||5; //一页条数
+    var currentPage = parseInt(req.body.currentPage)||1;//当前页数
+    var lastPage = currentPage - 1;
+    if (currentPage <= 1) {
+      lastPage = 1;
+    }
     const artist = req.query.author
     const result = await Music.findAll({
-         order: [
-             ['download_times', 'DESC']
-         ],  // 排序
-         where: {
-          author: author, // 精确查询
-         },
+        order: [
+            ['play_times', 'DESC']
+        ],  // 排序
+        where: {
+        author: author, // 精确查询
+        },
+        limit:  Number(pageSize),
+        offset: (currentPage - 1) * pageSize
        })
-    res.send(result)
+    const pageInfo = {
+      currentPage,
+      pageSize,
+      total:result.count
+    }
+    var response = normalRes({data:{content:result.rows,pageInfo:pageInfo}})
+    res.status(200).send(response)
 })
-//新歌排行（7天内排行，可以添加种类，作者等）
+//排行（歌曲排行，可以添加种类，作者，创建时间区间等）
 router.post('/topList',async(req,res)=>{
+  var pageSize = req.body.pageSize||20; //一页条数
+  var currentPage = parseInt(req.body.currentPage)||1;//当前页数
+  var lastPage = currentPage - 1;
+  if (currentPage <= 1) {
+    lastPage = 1;
+  }
   var searchParam={
     ...req.body,
   }
   delete searchParam.newset
+  delete searchParam.currentPage
+  delete searchParam.pageSize
+  delete searchParam.author
+
   if(req.body.newset){
     searchParam.create_time={[Op.lt]: new Date(),[Op.gt]: new Date(new Date() - 2 * 24 * 60 * 60 * 1000)
     }
+  }
+  if(req.body.author){
+    searchParam.author={[Op.like]: `%${req.body.author}%`}
   }
   var arr = []
   arr = Object.keys(searchParam).map((val, index)=>{
@@ -76,14 +104,21 @@ router.post('/topList',async(req,res)=>{
     return o
   })
   const sqlParam = {[Op.and]:arr}
-  const result = await Music.findAll({
+  const result = await Music.findAndCountAll({
+    attributes: { exclude: ['create_time','update_time'] },
     order: [
         ['play_times', 'DESC']
     ],  // 排序
     where: sqlParam,
-    limit:20
+    limit:  Number(pageSize),
+    offset: (currentPage - 1) * pageSize
   })
-  var response = normalRes({data:{content:result}})
+  const pageInfo = {
+    currentPage,
+    pageSize,
+    total:result.count
+  }
+  var response = normalRes({data:{content:result.rows,pageInfo:pageInfo}})
   res.status(200).send(response)
 
 })

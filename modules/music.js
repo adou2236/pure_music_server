@@ -19,9 +19,6 @@ var Music = Mysql.define('music', {
     song_name:{
         type:Sequelize.STRING(30)
     },
-    // url:{
-    //     type:Sequelize.STRING
-    // },
     music_id:{
         type:Sequelize.STRING
     },
@@ -34,18 +31,6 @@ var Music = Mysql.define('music', {
     play_times:{
         type:Sequelize.STRING
     },
-    // download_times:{
-    //     type:Sequelize.STRING
-    // },
-    // keywords:{
-    //     type:Sequelize.STRING,
-    //     get(){
-    //         return this.getDataValue('keywords').split(',')
-    //     },
-    //     set(value){
-    //         return this.setDataValue('keywords',value.join(','))
-    //     }
-    // },
     pic_url:{
         type:Sequelize.STRING
     }
