@@ -43,37 +43,37 @@ router.post('/',async (req,res)=>{
     res.status(200).send(response)
 })
 
-router.get('/artistList',async (req,res)=>{
-    const result = await Artist.findAll()
-    res.send(result)
-})
+// router.get('/artistList',async (req,res)=>{
+//     const result = await Artist.findAll()
+//     res.send(result)
+// })
 
-router.get('/musicByArtist',async(req,res)=>{
-    var pageSize = req.body.pageSize||5; //一页条数
-    var currentPage = parseInt(req.body.currentPage)||1;//当前页数
-    var lastPage = currentPage - 1;
-    if (currentPage <= 1) {
-      lastPage = 1;
-    }
-    const artist = req.query.author
-    const result = await Music.findAll({
-        order: [
-            ['play_times', 'DESC']
-        ],  // 排序
-        where: {
-        author: author, // 精确查询
-        },
-        limit:  Number(pageSize),
-        offset: (currentPage - 1) * pageSize
-       })
-    const pageInfo = {
-      currentPage,
-      pageSize,
-      total:result.count
-    }
-    var response = normalRes({data:{content:result.rows,pageInfo:pageInfo}})
-    res.status(200).send(response)
-})
+// router.get('/musicByArtist',async(req,res)=>{
+//     var pageSize = req.body.pageSize||5; //一页条数
+//     var currentPage = parseInt(req.body.currentPage)||1;//当前页数
+//     var lastPage = currentPage - 1;
+//     if (currentPage <= 1) {
+//       lastPage = 1;
+//     }
+//     const artist = req.query.author
+//     const result = await Music.findAll({
+//         order: [
+//             ['play_times', 'DESC']
+//         ],  // 排序
+//         where: {
+//         author: author, // 精确查询
+//         },
+//         limit:  Number(pageSize),
+//         offset: (currentPage - 1) * pageSize
+//        })
+//     const pageInfo = {
+//       currentPage,
+//       pageSize,
+//       total:result.count
+//     }
+//     var response = normalRes({data:{content:result.rows,pageInfo:pageInfo}})
+//     res.status(200).send(response)
+// })
 //排行（歌曲排行，可以添加种类，作者，创建时间区间等）
 router.post('/topList',async(req,res)=>{
   var pageSize = req.body.pageSize||20; //一页条数

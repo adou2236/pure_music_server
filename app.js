@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 var searchRouter = require('./routes/search')
 var addRouter = require('./routes/add')
 var playRouter = require('./routes/play')
+var adminRouter = require('./routes/admin')
 const { Console } = require('console');
 
 var app = express();
@@ -23,10 +24,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  // res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
-  res.setHeader('Access-Control-Expose-Headers', 'Authorization')
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+  // res.setHeader('Access-Control-Expose-Headers', 'Authorization')
   next();
 });
 
@@ -47,6 +48,7 @@ app.use('/users', usersRouter);
 app.use('/search', searchRouter);
 app.use('/add', addRouter);
 app.use('/play', playRouter);
+app.use('/admin', adminRouter);
 
 
 

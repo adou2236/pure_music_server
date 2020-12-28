@@ -6,13 +6,13 @@ var Sequelize = require('sequelize');//引入sequelize
 
 
 const Op = Sequelize.Op;
-
+//统计播放量
 router.get('/:music_id',async (req,res)=>{
     const music_id = req.params.music_id
     try {
-        const data = await Music.findOne({where:{music_id:music_id}})
-        data.play_times++
-        const result = await data.save()
+        const result = await Music.update({
+            count:Sequelize.literal('play_times+1')
+        },{where:{music_id:music_id}})
         res.send({})
     } catch (error) {
         res.send(error)
