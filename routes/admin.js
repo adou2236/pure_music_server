@@ -41,7 +41,7 @@ router.get('/', (req, res, next) => {
 
   //第二种方式
   try{
-    var path='log/pure_music/server.log';
+    var path='app.apk';
     var f = fs.createReadStream(path);
     const fileName = encodeURIComponent('净音.apk') // 需要先转码才行
     res.writeHead(200, {

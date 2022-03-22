@@ -9,10 +9,12 @@ const Op = Sequelize.Op;
 //统计播放量
 router.get('/:music_id',async (req,res)=>{
     const music_id = req.params.music_id
+    console.log(music_id)
     try {
         const result = await Music.update({
-            count:Sequelize.literal('play_times+1')
+            play_times:Sequelize.literal('play_times+1')
         },{where:{music_id:music_id}})
+        console.log(result)
         res.send({})
     } catch (error) {
         res.send(error)
